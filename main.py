@@ -54,7 +54,6 @@ def choose_wallpaper() -> str:
 
 
 def scheduler():
-    print("Scheduler Running")
     run = True
     while True:
         if datetime.datetime.now().hour == 6 and run:
