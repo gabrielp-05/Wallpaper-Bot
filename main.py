@@ -7,7 +7,7 @@ import os
 
 
 PARSER = "html.parser"
-WEBHOOK_URL = os.env.get(WEBHOOK_URL)
+WEBHOOK_URL = os.env.get("WEBHOOK_URL")
 
 def get_image(url) -> str:
     content = requests.get(url, PARSER)
