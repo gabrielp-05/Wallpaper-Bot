@@ -28,8 +28,10 @@ def get_title(url) -> str:
 def get_name(url) -> str:
     content = requests.get(url, PARSER)
     soup = BeautifulSoup(content.text, features=PARSER)
-    name = soup.find("div", attrs={"class": "friendBlockContent"})
-    return name.text.strip().split('\n')[0]
+    user = soup.find("div", attrs={"class": "friendBlockContent"})
+    status = user.find('span')
+    status.extract()
+    return user.text.strip()
 
 def send_wallpaper(wallpaper_url) -> None:
     url = WEBHOOK_URL
