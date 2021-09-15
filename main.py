@@ -3,9 +3,11 @@ from bs4 import BeautifulSoup
 from keep_alive import keep_alive
 import datetime
 import requests
+import os
 
 
 PARSER = "html.parser"
+WEBHOOK_URL = os.env.get(WEBHOOK_URL)
 
 def get_image(url) -> str:
     content = requests.get(url, PARSER)
@@ -30,7 +32,7 @@ def get_name(url) -> str:
     return name.text.strip().split('\n')[0]
 
 def send_wallpaper(wallpaper_url) -> None:
-    url = "https://discord.com/api/webhooks/887076175594278963/24OqyswMZZ6dPhheMhxg_cmw1VNvrmoPjN2qtbGqfDUnLs4SRTbt6-D-AamjaI6j73Hq"
+    url = WEBHOOK_URL
     get_image(wallpaper_url)
 
     webhook = DiscordWebhook(url=url)
