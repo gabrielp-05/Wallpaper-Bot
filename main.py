@@ -45,7 +45,7 @@ def send_wallpaper(wallpaper_url) -> None:
     webhook.execute()
 
 def choose_wallpaper() -> str:
-    url = "https://steamcommunity.com/workshop/browse/?appid=431960&searchtext=&childpublishedfileid=0&browsesort=trend&section=readytouseitems&requiredtags%5B%5D=Approved&excludedtags%5B%5D=Anime"
+    url = "https://steamcommunity.com/workshop/browse/?appid=431960&browsesort=trend&section=readytouseitems&requiredtags%5B0%5D=Approved&excludedtags%5B0%5D=Anime&actualsort=trend&p=1&days=1"
     content = requests.get(url, PARSER)
     soup = BeautifulSoup(content.text, features=PARSER)
 
@@ -57,11 +57,11 @@ def scheduler():
     print("Scheduler running")
     run = True
     while True:
-        if datetime.datetime.now().hour == 6 and run:
+        if datetime.datetime.now().hour == 8 and run:
             send_wallpaper(wallpaper_url=choose_wallpaper())
             print(f"Wallpaper successfully sent at {datetime.datetime.now()}")
             run = False
-        elif datetime.datetime.now().hour != 6:
+        elif datetime.datetime.now().hour != 8  :
             run = True
 
 if __name__ == "__main__":
