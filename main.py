@@ -57,11 +57,11 @@ def scheduler():
     print("Scheduler running")
     run = True
     while True:
-        if datetime.datetime.now().hour == 8 and run:
+        if datetime.datetime.now().hour == 7 and run:
             send_wallpaper(wallpaper_url=choose_wallpaper())
             print(f"Wallpaper successfully sent at {datetime.datetime.now()}")
             run = False
-        elif datetime.datetime.now().hour != 8  :
+        elif datetime.datetime.now().hour != 7  :
             run = True
 
 if __name__ == "__main__":
