@@ -1,6 +1,6 @@
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from bs4 import BeautifulSoup
-from keep_alive import keep_alive
+from utils.keep_alive import keep_alive
 import datetime
 import requests
 import os
@@ -41,6 +41,7 @@ def send_wallpaper(wallpaper_url) -> None:
     embed = DiscordEmbed(title="Wallpaper of the day", description=f"**{get_title(wallpaper_url)}** - **{get_name(wallpaper_url)}**", color="A020F0")
     embed.set_url(url=wallpaper_url)
     embed.set_image(url=get_image(wallpaper_url))
+    embed.add_embed_field(name="\u200b", value="[See my source code](https://github.com/Xephire/Wallpaper-Bot)")
     webhook.add_embed(embed)
     webhook.execute()
 
