@@ -6,7 +6,7 @@ import requests
 import os
 
 PARSER = "html.parser"
-WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
+WEBHOOK_URLS = os.environ.get("WEBHOOK_URLS").split(" ")  # add all webhook URLs to an env var string separated by a space.
 
 
 def get_image(content) -> str:
@@ -35,18 +35,17 @@ def get_name(content) -> str:
 
 def send_wallpaper(wallpaper_url) -> None:
     """Creates the webhook, fills it with the necessary details and information, and executes it"""
-    url = WEBHOOK_URL
-
-    content = requests.get(wallpaper_url, PARSER)
-
-    webhook = DiscordWebhook(url=url)
-
-    embed = DiscordEmbed(title="Wallpaper of the day", description=f"**{get_title(content)}** - **{get_name(content)}**", color="A020F0")
-    embed.set_url(url=wallpaper_url)
-    embed.set_image(url=get_image(content))
-    embed.add_embed_field(name="\u200b", value="[See my source code](https://github.com/Xephire/Wallpaper-Bot)")
-    webhook.add_embed(embed)
-    webhook.execute()
+    for url in WEBHOOK_URLS:
+        content = requests.get(wallpaper_url, PARSER)
+    
+        webhook = DiscordWebhook(url=url)
+    
+        embed = DiscordEmbed(title="Wallpaper of the day", description=f"**{get_title(content)}** - **{get_name(content)}**", color="A020F0")
+        embed.set_url(url=wallpaper_url)
+        embed.set_image(url=get_image(content))
+        embed.add_embed_field(name="\u200b", value="[See my source code](https://github.com/Xephire/Wallpaper-Bot)")
+        webhook.add_embed(embed)
+        webhook.execute()
 
 def choose_wallpaper() -> str:
     """Chooses the first wallpaper from that day's top wallpapers"""
